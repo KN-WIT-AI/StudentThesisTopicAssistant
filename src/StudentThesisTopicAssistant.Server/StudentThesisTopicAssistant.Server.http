@@ -1,0 +1,6 @@
+@StudentThesisTopicAssistant.Server_HostAddress = http://localhost:5261
+
+GET {{StudentThesisTopicAssistant.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
