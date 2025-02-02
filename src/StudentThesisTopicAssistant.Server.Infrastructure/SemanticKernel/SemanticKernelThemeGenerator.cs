@@ -1,6 +1,6 @@
 ﻿using Microsoft.SemanticKernel.ChatCompletion;
-using StudentThesisTopicAssistant.Server.Form.Features.GenerateTheme;
-using StudentThesisTopicAssistant.Server.Form.Features.Shared;
+using StudentThesisTopicAssistant.Server.Form.Features.GenerateThemes;
+using StudentThesisTopicAssistant.Server.Form.Features.GenerateThemes.Contract;
 
 namespace StudentThesisTopicAssistant.Server.Infrastructure.SemanticKernel;
 
@@ -12,6 +12,7 @@ internal class SemanticKernelThemeGenerator(ILLMChat llmChat) : IThemeGenerator
             """
             Twoim zadaniem jest pomóc studentowi wybrać temat pracy dyplomowej.
             Twoje zadanie polega na wygenerowaniu listy prostych słów kluczowych(obszarów) związanych z podanym kierunkiem i obszarami wraz z poziomem dopasowania od 0 do 100.
+            DO frazy dodaj jakąś emotkę utf8
             Unikaj powtażania słów podanych na wejściu.
             Zwróć listę w formacie JSON!!! np:
             [

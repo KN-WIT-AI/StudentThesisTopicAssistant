@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel;
-using StudentThesisTopicAssistant.Server.Form.Features.GenerateTheme;
 using StudentThesisTopicAssistant.Server.Infrastructure.SemanticKernel;
 using Microsoft.Extensions.Configuration;
-using StudentThesisTopicAssistant.Server.Form.Features.GenerateTopic;
+using StudentThesisTopicAssistant.Server.Form.Features.GenerateTopics;
+using StudentThesisTopicAssistant.Server.Form.Features.GenerateThemes;
 
 namespace StudentThesisTopicAssistant.Server.Infrastructure;
 

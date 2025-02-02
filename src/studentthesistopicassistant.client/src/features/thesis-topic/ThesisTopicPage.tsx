@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { FieldOfStudySelector } from "./components/FieldOfStudySelector";
 import { DegreeSelector } from "./components/DegreeSelector";
 import { CircularSelector } from "./components/CircularSelector";
-import { Button, Chip, CircularProgress, Typography } from "@mui/material";
+import { Button, Chip, Typography } from "@mui/material";
 import { PhraseQuality } from "./models/phrase-quality";
 import { useMutation } from "react-query";
 import { fetchThemes, fetchTopics } from "./services/theme.service";
+import { Topic } from "./models/topic";
+import { TopicsList } from "./components/TopicsList/TopicsList";
+import { AiLoader } from "../../shared/components/AiLoader";
 
 const maxSelectedThemes = 5;
 
@@ -15,7 +18,7 @@ export function ThesisTopicPage() {
   const [alreadySelectedThemes, setAlreadySelectedThemes] = useState<string[]>(
     []
   );
-  const [topics, setTopics] = useState<string[] | null>(null);
+  const [topics, setTopics] = useState<Topic[] | null>(null);
 
   const { mutateAsync: fetchThemesAsync, isLoading: themesLoading } =
     useMutation(() =>
@@ -39,7 +42,7 @@ export function ThesisTopicPage() {
 
   async function prepareTopics() {
     const response = await fetchTopicsAsync();
-    setTopics(response.map((x: PhraseQuality) => x.phrase));
+    setTopics(response);
   }
 
   useEffect(() => {
@@ -73,7 +76,10 @@ export function ThesisTopicPage() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center">
+      <div
+        className="flex flex-col items-center justify-center"
+        style={{ height: "60vh" }}
+      >
         {!fieldOfStudy && (
           <FieldOfStudySelector onSelect={(e) => setFieldOfStudy(e)} />
         )}
@@ -91,25 +97,21 @@ export function ThesisTopicPage() {
             />
           )}
         {themesLoading && alreadySelectedThemes.length < maxSelectedThemes && (
-          <CircularProgress />
+          <AiLoader size="lg" />
         )}
         {fieldOfStudy &&
           degree &&
-          alreadySelectedThemes.length >= maxSelectedThemes && (
+          alreadySelectedThemes.length >= maxSelectedThemes &&
+          !topicsLoading && (
             <Button onClick={() => prepareTopics()}>Przygotuj tematy</Button>
           )}
         {fieldOfStudy &&
           degree &&
           alreadySelectedThemes.length >= maxSelectedThemes &&
-          topics && (
-            <div className="flex flex-col gap-2 p-2 text-justify">
-              {topics.map((topic) => (
-                <Typography key={topic}>{topic}</Typography>
-              ))}
-            </div>
-          )}
+          topics &&
+          !topicsLoading && <TopicsList topics={topics} />}
         {topicsLoading && alreadySelectedThemes.length >= maxSelectedThemes && (
-          <CircularProgress />
+          <AiLoader size="lg" />
         )}
       </div>
     </div>
