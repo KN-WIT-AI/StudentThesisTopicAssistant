@@ -1,11 +1,12 @@
 import { PhraseQuality } from "../models/phrase-quality";
+import { Topic } from "../models/topic";
 
 export async function fetchThemes(
   fieldOfStudy: string,
   degree: string,
   alreadySelectedThemes: string[]
 ): Promise<PhraseQuality[]> {
-  const response = await fetch("/api/theme/generate", {
+  const response = await fetch("/api/themes/generate", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -19,15 +20,15 @@ export async function fetchThemes(
 export async function fetchTopics(
   fieldOfStudy: string,
   degree: string,
-  alreadySelectedThemes: string[]
-) {
-  const response = await fetch("/api/topic/generate", {
+  selectedThemes: string[]
+): Promise<Topic[]> {
+  const response = await fetch("/api/topics/generate", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ fieldOfStudy, degree, alreadySelectedThemes }),
+    body: JSON.stringify({ fieldOfStudy, degree, selectedThemes }),
   });
   const responseJson = await response.json();
-  return responseJson.themes;
+  return responseJson.topics;
 }
