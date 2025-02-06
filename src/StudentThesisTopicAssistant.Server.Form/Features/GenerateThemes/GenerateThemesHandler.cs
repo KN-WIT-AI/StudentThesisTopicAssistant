@@ -7,14 +7,9 @@ internal class GenerateThemesHandler(IThemeGenerator themeGenerator) : IRequestH
 {
     public async Task<List<PhraseQuality>> Handle(GenerateThemesQuery request, CancellationToken cancellationToken)
     {
-        var result = await themeGenerator.Generate(
+        return await themeGenerator.Generate(
             request.Degree,
             request.FieldOfStudy,
             request.AlreadySelectedThemes);
-
-        return result
-            .OrderByDescending(x => x.Quality)
-            .Take(8)
-            .ToList();
     }
 }

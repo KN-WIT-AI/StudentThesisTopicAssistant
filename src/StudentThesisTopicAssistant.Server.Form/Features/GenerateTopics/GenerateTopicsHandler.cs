@@ -7,14 +7,9 @@ internal class GenerateTopicsHandler(ITopicGenerator topicGenerator) : IRequestH
 {
     public async Task<List<Topic>> Handle(GenerateTopicsQuery request, CancellationToken cancellationToken)
     {
-        var result = await topicGenerator.Generate(
+        return await topicGenerator.Generate(
             request.Degree,
             request.FieldOfStudy,
             request.AlreadySelectedThemes);
-
-        return result
-            .OrderByDescending(x => x.Quality)
-            .Take(8)
-            .ToList();
     }
 }

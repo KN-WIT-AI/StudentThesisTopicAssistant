@@ -76,10 +76,7 @@ export function ThesisTopicPage() {
         </div>
       </div>
 
-      <div
-        className="flex flex-col items-center justify-center"
-        style={{ height: "60vh" }}
-      >
+      <div className="flex flex-col items-center justify-center">
         {!fieldOfStudy && (
           <FieldOfStudySelector onSelect={(e) => setFieldOfStudy(e)} />
         )}
